@@ -11,7 +11,7 @@ async function main() {
 
   // Earthquake Layer
   function markerSize(magnitude) {
-      return Math.sqrt(magnitude * 10);
+      return Math.sqrt(magnitude * 15);
     }
   
   function markerColor(depth) {
@@ -37,7 +37,9 @@ async function main() {
             weight: 1,
             fillColor: markerColor(coordinates[2]),
             radius: markerSize(dataset.features[i].properties.mag)
-            }).bindPopup(`<h3>${dataset.features[i].properties.title}</h3> <h4>Magnitude: ${dataset.features[i].properties.mag}</h4>`)
+            }).bindPopup(`<h3>${dataset.features[i].properties.title}</h3>
+            <h4>Magnitude: ${dataset.features[i].properties.mag}</h4>
+            <h4>Depth: ${coordinates[2]}</h4>`)
         )
     }
     return earthquakeMarkers
