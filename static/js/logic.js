@@ -51,7 +51,8 @@ function createBorders(dataset) {
   //Define arrays to hold tectonic plate polygons
   var tectonicBorders = []
   for (var i = 0; i < dataset.features.length; i++) {
-    var line = [dataset.features[i].geometry.coordinates]
+    var pointArray = dataset.features[i].geometry.coordinates
+    var line = pointArray.map(latlong => latlong.reverse())
     tectonicBorders.push(L.polyline(line,
       {
         color: "gold"
