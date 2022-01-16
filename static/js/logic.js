@@ -4,12 +4,12 @@ async function main() {
   const data = await response.json();
   console.log(data);
 
-  const response1 = await fetch("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_plates.json")
+  const response1 = await fetch("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json")
   const data1 = await response1.json()
   console.log(data1)
 
 
-  // Earthquake Layerr
+  // Earthquake Layer
   function markerSize(magnitude) {
       return Math.sqrt(magnitude * 10);
     }
@@ -51,7 +51,8 @@ function createBorders(dataset) {
   //Define arrays to hold tectonic plate polygons
   var tectonicBorders = []
   for (var i = 0; i < dataset.features.length; i++) {
-    tectonicBorders.push(L.polygon([dataset.features[i].geometry.coordinates],
+    var line = [dataset.features[i].geometry.coordinates]
+    tectonicBorders.push(L.polyline(line,
       {
         color: "gold"
       }))
@@ -94,7 +95,7 @@ var tectonicPlateLayer = L.layerGroup(tectonicBorders)
   var myMap = L.map("map", {
       center: [40.73, -74.0059],
       zoom: 3,
-      layers: [street, earthquakeLayer]
+      layers: [street, earthquakeLayer, tectonicPlateLayer]
   });
 
   // Creating earthquake legend
